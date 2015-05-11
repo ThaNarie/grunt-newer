@@ -119,7 +119,7 @@ Example use of the `cache` option:
   });
 ```
 
-#### <a id="optionsoverride">options.override</a>
+#### <a id="optionsoverride">options.override (not supported atm)</a>
  * type: `function(Object, function(boolean))`
  * default: `null`
 
