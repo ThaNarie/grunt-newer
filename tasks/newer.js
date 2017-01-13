@@ -104,12 +104,16 @@ function createTask(grunt)
 
 		var files = grunt.task.normalizeMultiTaskFiles(config, targetName);
 
-		function writeFileFromCache(path, dest)
+		function writeFileFromCache(path, dest, callback)
 		{
 			grunt.verbose.write('write file from cache > ' + dest + ' ...');
-			var buffer = grunt.file.read(path, {encoding: null});
-			grunt.file.write(dest, buffer);
-			grunt.verbose.ok();
+
+			fs.readFile(path, {encoding: null}, function(err, buffer) {
+				fs.writeFile(path, buffer, {encoding: null}, function(err, buffer) {
+					grunt.verbose.ok();
+					callback();
+				});
+			});
 		}
 
 		util.filterFilesByHash(files, options.cache, taskName, targetName, writeFileFromCache, function (err, newerFiles)
